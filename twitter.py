@@ -1,24 +1,20 @@
-from flask import Flask, render_template, request, url_for, g, session
+from flask import Flask, render_template, request, url_for, session
 
 app = Flask(__name__)
 app.config['SECRET_KEY']= 'you will never guess it!'
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
-    if request.method == 'POST':
-        pass #login!
-    else:
-        if 'user' in session:
-            return url_for('home')
-        return render_template('index.html')
+    if 'user' in session:
+        return url_for('home')
+    return render_template('index.html')
 
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET'])
 def home():
     if 'user' in session:
-        if requset.method == 'POST':
-            pass #show the twit's...
-        else:
-            pass #show the texts....
+        pass #show the twit's...
+    else:
+        pass #show the texts....
 
 @app.route('/login', methods=['POST'])
 def login():
