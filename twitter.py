@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, session, redirect
+from flask import Flask, render_template, request, url_for, session, redirect,send_from_directory
 
 app = Flask(__name__)
 app.config['SECRET_KEY']= 'you will never guess it!'
@@ -13,7 +13,7 @@ def index():
 @app.route('/home')
 def home():
     if 'user' in session:
-        return 'you are here!'
+        return 'you are here! <a href="/logout">Logout!</a>'
     else:
         return redirect(url_for('index'))
 
@@ -26,6 +26,10 @@ def login():
 def logout():
     session.pop('user')
     return redirect(url_for('index'))
-        
+
+@app.route('/assets/<path:path>')
+def send_file(path):
+    return send_from_directory('assets',path)
+
 if __name__ == '__main__':
     app.run(debug=True)
